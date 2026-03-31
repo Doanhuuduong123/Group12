@@ -38,4 +38,10 @@ public class ExceptionHandler {
     public static void logError(Exception e) {
         System.out.println(" Lỗi: " + e.getMessage());
     }
+
+    public static void handleException(Exception e, String message) {
+        System.err.println(" " + message);
+        System.err.println(" Chi tiết: " + e.getMessage());
+        e.printStackTrace();
+    }
 }
