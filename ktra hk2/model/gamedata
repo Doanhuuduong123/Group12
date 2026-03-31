@@ -1,0 +1,26 @@
+package model;
+
+public class GameData {
+
+    private int score;
+    private boolean gameOver;
+
+    public GameData() {
+        score = 0;
+        gameOver = false;
+    }
+
+    public int getScore() { return score; }
+
+    public void increaseScore() {
+        score++;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+}//Quản lý trạng thái game

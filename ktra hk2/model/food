@@ -1,0 +1,18 @@
+package model;
+
+import java.util.Random;
+
+public class Food extends GameObject {
+
+    private Random rand = new Random();
+
+    public Food(int size) {
+        super(0, 0, size);
+        spawn();
+    }
+
+    public void spawn() {
+        this.x = rand.nextInt(20) * size;
+        this.y = rand.nextInt(20) * size;
+    }
+}
