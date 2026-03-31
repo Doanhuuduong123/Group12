@@ -1,8 +1,0 @@
-public static Image loadImage(String fileName) {
-    try {
-        return new ImageIcon("assets/" + fileName).getImage();
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + fileName); [cite: 17, 81]
-        return null;
-    }
-}
