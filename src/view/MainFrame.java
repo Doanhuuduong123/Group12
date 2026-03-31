@@ -1,3 +1,10 @@
+package view;
+
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 public class MainFrame extends JFrame {
     public MainFrame() {
         setTitle("Game Rắn Săn Mồi");
