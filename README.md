@@ -5,7 +5,7 @@
 
 | STT | Họ và Tên | Mã Sinh Viên | Vai trò / Nhiệm vụ | Link GitHub |
 | :-- | :--- | :--- | :--- | :--- |
-| 1 | **Đoàn Hữu Dương** | MSV:3120225034 25CNTT3 | **Phần 1**: Code Controller, Xử lý va chạm, Game Loop | [GitHub] (https://github.com/Doanhuuduong123) |
+| 1 | ** Đoàn Hữu Dương** | MSV:3120225034 25CNTT3 | **Phần 1**: Code Controller, Xử lý va chạm, Game Loop | [GitHub] (https://github.com/Doanhuuduong123) |
 | 2 | **Phan Trần Mai Uyên** (Nhóm trưởng) |MSV:3120225174 25CNTT3 | **Phần 2**: Code View, Thiết kế giao diện Menu, Đồ họa Asset | [GitHub] (https://github.com/DayunJ1410) |
 | 3 | **Trần Quốc Trung** | MSV: 3120225167 25CNTT3 | **Phần 3**: Code Model (Snake, Food), Xử lý File I/O | [GitHub] (https://github.com/abachaap) |
 
