@@ -5,7 +5,6 @@ import java.io.File;
 
 public class SoundManager {
     
-    // Hàm nạp file âm thanh từ thư mục asset
     public static Clip loadSound(String fileName) {
         try {
             File soundFile = new File("asset/" + fileName);
@@ -19,24 +18,21 @@ public class SoundManager {
         }
     }
 
-   // Hàm phát âm thanh 1 lần (Đã được nâng cấp chống kẹt tiếng)
     public static void playSound(Clip clip) {
         if (clip != null) {
-            clip.stop();              // BẮT BUỘC: Dừng âm thanh cũ nếu nó đang phát dở
-            clip.setFramePosition(0); // Tua lại từ đầu
-            clip.start();             // Phát lại
+            clip.stop();
+            clip.setFramePosition(0);
+            clip.start();
         }
     }
 
-    // Hàm phát lặp đi lặp lại (Dùng cho nhạc nền)
     public static void loopSound(Clip clip) {
         if (clip != null) {
             clip.setFramePosition(0);
-            clip.loop(Clip.LOOP_CONTINUOUSLY); // Lặp vô hạn
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }
 
-    // Hàm dừng âm thanh (Dùng khi Game Over)
     public static void stopSound(Clip clip) {
         if (clip != null && clip.isRunning()) {
             clip.stop();

@@ -107,21 +107,17 @@ public class GamePanel extends JPanel {
                 }
             }
 
-            // 4. Vẽ Vật cản (Đã thêm tính năng xoay ngẫu nhiên)
             if (gameData != null && gameData.getWalls() != null) {
                 for (Wall wWall : gameData.getWalls()) {
                     if (wallImg != null) {
-                        // Gọi hàm drawRotatedImage có sẵn của rắn để xoay khối tường
                         drawRotatedImage(g2d, wallImg, wWall.getX(), wWall.getY(), wWall.getDirection());
                     } else {
-                        // Fallback: vẽ hình vuông màu xám nếu không nạp được ảnh
                         g2d.setColor(Color.DARK_GRAY);
                         g2d.fillRect(wWall.getX(), wWall.getY(), TILE_SIZE, TILE_SIZE);
                     }
                 }
             }
             
-        // ĐÂY LÀ PHẦN CODE BẠN BỊ THIẾU DẪN ĐẾN BÁO LỖI:
         } catch (Exception e) {
             g2d.setColor(Color.RED);
             g2d.drawString("LỖI: " + e.getMessage(), 50, 50);
