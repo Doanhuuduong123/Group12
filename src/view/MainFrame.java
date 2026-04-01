@@ -1,207 +1,128 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-import javax.swing.JDialog;
-import javax.swing.JButton;
-import javax.swing.Box;
-import javax.swing.BorderFactory;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GradientPaint;
-import java.awt.Cursor;
-
+import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 public class MainFrame extends JFrame {
-    private JLabel scoreLabel;
+    private CardLayout cardLayout;
+    private JPanel mainContainer;
+    
     private MenuPanel menuPanel;
     private GamePanel gamePanel;
     private ShowHighscorePanel highscorePanel;
+    
     private JPanel scorePanel;
+    private JLabel scoreLabel;
 
     public MainFrame() {
-        setTitle("🐍 GAME RẮN ĂN MỒI - ĐẢ VÀNG TỪ ĐỊA NGỤC 🐍");
-        setLayout(new BorderLayout());
-        
-        // Tạo panel hiển thị điểm số ở phía trên (ẩn khi vào menu)
-        scorePanel = new JPanel();
-        scoreLabel = new JLabel("📍 ĐIỂM SỐ: 0");
-        scoreLabel.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20));
-        scorePanel.add(scoreLabel);
-        scorePanel.setBackground(new java.awt.Color(76, 175, 80));
-        scoreLabel.setForeground(java.awt.Color.WHITE);
-        
-        // Tạo MenuPanel
-        menuPanel = new MenuPanel();
-        
-        // Thêm MenuPanel vào frame
-        add(menuPanel, BorderLayout.CENTER);
-        
-        pack();
-        setSize(950, 700);
-        setLocationRelativeTo(null);
+        setTitle("SNAKE GAME - DA VANG TU DIA NGUC");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(950, 750);
+        setLocationRelativeTo(null);
+
+        cardLayout = new CardLayout();
+        mainContainer = new JPanel(cardLayout);
+
+        setupScorePanel();
+
+        menuPanel = new MenuPanel();
+        mainContainer.add(menuPanel, "MENU");
+
+        add(mainContainer, BorderLayout.CENTER);
     }
-    
-    // Hiển thị menu
+
+    private void setupScorePanel() {
+        scorePanel = new JPanel();
+        scorePanel.setBackground(new Color(76, 175, 80)); 
+        scoreLabel = new JLabel("🏆 DIEM SO: 0");
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        scoreLabel.setForeground(Color.WHITE);
+        scorePanel.add(scoreLabel);
+    }
+
     public void showMenu() {
-        remove(scorePanel);
-        if (gamePanel != null) {
-            remove(gamePanel);
-        }
-        if (highscorePanel != null) {
-            remove(highscorePanel);
-        }
-        add(menuPanel, BorderLayout.CENTER);
+        getContentPane().remove(scorePanel); 
+        cardLayout.show(mainContainer, "MENU");
         revalidate();
         repaint();
     }
-    
-    // Hiển thị game
+
     public void showGame(GamePanel game) {
         this.gamePanel = game;
-        remove(menuPanel);
-        if (highscorePanel != null) {
-            remove(highscorePanel);
-        }
-        add(scorePanel, BorderLayout.NORTH);
-        add(gamePanel, BorderLayout.CENTER);
+        mainContainer.add(gamePanel, "GAME");
+        
+        add(scorePanel, BorderLayout.NORTH); 
+        cardLayout.show(mainContainer, "GAME");
+        
+        gamePanel.requestFocusInWindow(); 
         revalidate();
         repaint();
     }
-    
-    // Hiển thị bảng xếp hạng
+
     public void showHighscore(ArrayList<Integer> scores) {
-        if (gamePanel != null) {
-            remove(gamePanel);
-            remove(scorePanel);
-        }
-        remove(menuPanel);
-        
+        getContentPane().remove(scorePanel);
         highscorePanel = new ShowHighscorePanel(scores);
-        add(highscorePanel, BorderLayout.CENTER);
+        mainContainer.add(highscorePanel, "HIGHSCORE");
+        cardLayout.show(mainContainer, "HIGHSCORE");
         revalidate();
         repaint();
     }
-    
-    // Hiển thị Game Over dialog
-    public void showGameOver(int score) {
-        JDialog gameOverDialog = new JDialog(this, "💀 KẾT THÚC TRẬN ĐẤU 💀", true);
-        gameOverDialog.setSize(500, 320);
-        gameOverDialog.setLocationRelativeTo(this);
-        gameOverDialog.setLayout(new BorderLayout(20, 20));
-        gameOverDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        
-        // Panel chính với gradient
-        JPanel mainPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                GradientPaint gradient = new GradientPaint(0, 0, new Color(255, 200, 200),
-                        0, getHeight(), new Color(255, 150, 150));
-                g2d.setPaint(gradient);
-                g2d.fillRect(0, 0, getWidth(), getHeight());
-            }
-        };
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
-        
-        // Tiêu đề Game Over
-        JLabel titleLabel = new JLabel("💀 GAME OVER! 💀");
-        titleLabel.setFont(new Font("Arial Black", Font.BOLD, 36));
-        titleLabel.setForeground(new Color(200, 30, 30));
-        titleLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        mainPanel.add(titleLabel);
-        
-        mainPanel.add(Box.createVerticalStrut(20));
-        
-        // Thông báo
-        JLabel messageLabel = new JLabel("Bạn đã chết vì chạm vào bẫy!");
-        messageLabel.setFont(new Font("Arial", Font.ITALIC, 16));
-        messageLabel.setForeground(new Color(100, 0, 0));
-        messageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        mainPanel.add(messageLabel);
-        
-        mainPanel.add(Box.createVerticalStrut(15));
-        
-        // Điểm số hiển thị
-        JLabel scoreLabelText = new JLabel("📊 ĐIỂM SỐ CUỐI CÙNG: " + score);
-        scoreLabelText.setFont(new Font("Arial", Font.BOLD, 24));
-        scoreLabelText.setForeground(new Color(0, 100, 0));
-        scoreLabelText.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        mainPanel.add(scoreLabelText);
-        
-        // Đánh giá
-        JLabel ratingLabel = new JLabel();
-        String rating;
-        if (score >= 100) rating = "⭐⭐⭐⭐⭐ SIÊU SAO!";
-        else if (score >= 80) rating = "⭐⭐⭐⭐ VÔ CÙNG TỐT!";
-        else if (score >= 60) rating = "⭐⭐⭐ TỐT!";
-        else if (score >= 40) rating = "⭐⭐ TRUNG BÌNH";
-        else if (score > 0) rating = "⭐ HÃY CỐ GẮNG LẠI!";
-        else rating = "Bạn cần luyện tập thêm!";
-        
-        ratingLabel.setText(rating);
-        ratingLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        ratingLabel.setForeground(new Color(255, 140, 0));
-        ratingLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        mainPanel.add(ratingLabel);
-        
-        gameOverDialog.add(mainPanel, BorderLayout.CENTER);
-        
-        // Panel nút
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(new Color(200, 100, 100));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
-        JButton okButton = new JButton("🔄 QUAY VỀ MENU");
-        okButton.setFont(new Font("Arial", Font.BOLD, 16));
-        okButton.setForeground(Color.WHITE);
-        okButton.setBackground(new Color(200, 50, 50));
-        okButton.setPreferredSize(new Dimension(200, 45));
-        okButton.setFocusPainted(false);
-        okButton.setBorderPainted(false);
-        okButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
-        okButton.addActionListener(e -> gameOverDialog.dispose());
-        okButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseEntered(java.awt.event.MouseEvent e) {
-                okButton.setBackground(new Color(220, 80, 80));
-            }
-            @Override
-            public void mouseExited(java.awt.event.MouseEvent e) {
-                okButton.setBackground(new Color(200, 50, 50));
-            }
-        });
-        
-        buttonPanel.add(okButton);
-        gameOverDialog.add(buttonPanel, BorderLayout.SOUTH);
-        
-        gameOverDialog.setVisible(true);
-    }
-    
-    // Cập nhật điểm số
+
     public void setScore(int score) {
-        scoreLabel.setText("� ĐIỂM SỐ: " + score);
-        scoreLabel.setText("🏆 ĐIỂM SỐ: " + score);
+        scoreLabel.setText("🏆 DIEM SO: " + score);
     }
-    
-    // Getter cho MenuPanel
-    public MenuPanel getMenuPanel() {
-        return menuPanel;
+
+    public void showGameOver(int score) {
+        GameOverDialog dialog = new GameOverDialog(this, score);
+        dialog.setVisible(true); 
     }
-    
-    // Getter cho HighscorePanel
-    public ShowHighscorePanel getHighscorePanel() {
-        return highscorePanel;
+
+    public MenuPanel getMenuPanel() { return menuPanel; }
+    public ShowHighscorePanel getHighscorePanel() { return highscorePanel; }
+
+    private class GameOverDialog extends JDialog {
+        public GameOverDialog(Frame owner, int score) {
+            super(owner, "KET THUC", true);
+            setSize(400, 300);
+            setLocationRelativeTo(owner);
+            setLayout(new BorderLayout());
+
+            JPanel content = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setPaint(new GradientPaint(0, 0, new Color(255, 80, 80), 0, getHeight(), new Color(150, 0, 0)));
+                    g2d.fillRect(0, 0, getWidth(), getHeight());
+                }
+            };
+            content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+            content.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+            JLabel lblOver = new JLabel("💀 GAME OVER 💀");
+            lblOver.setFont(new Font("Arial Black", Font.BOLD, 28));
+            lblOver.setForeground(Color.WHITE);
+            lblOver.setAlignmentX(CENTER_ALIGNMENT);
+
+            JLabel lblScore = new JLabel("SCORE: " + score);
+            lblScore.setFont(new Font("Arial", Font.BOLD, 22));
+            lblScore.setForeground(Color.YELLOW);
+            lblScore.setAlignmentX(CENTER_ALIGNMENT);
+
+            JButton btnBack = new JButton("QUAY VE MENU");
+            btnBack.setAlignmentX(CENTER_ALIGNMENT);
+            btnBack.addActionListener(e -> {
+                dispose();
+                showMenu();
+            });
+
+            content.add(lblOver);
+            content.add(Box.createVerticalStrut(20));
+            content.add(lblScore);
+            content.add(Box.createVerticalStrut(30));
+            content.add(btnBack);
+
+            add(content);
+        }
     }
 }

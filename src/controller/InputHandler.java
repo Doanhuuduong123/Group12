@@ -2,31 +2,25 @@ package controller;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import model.Snake; // Nhớ import Snake nhé
+import model.Snake;
 
 public class InputHandler extends KeyAdapter {
     private Snake snake;
 
-    // PHẢI CÓ ĐOẠN NÀY: Constructor để nhận con rắn từ Main truyền vào
-    public InputHandler(Snake snake) {
-        this.snake = snake;
-    }
+    public InputHandler(Snake snake) { this.snake = snake; }
 
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        // Sử dụng hướng di chuyển thực tế cuối cùng của rắn để chặn quay đầu 180 độ
-        String lastDir = snake.getLastMovedDirection();
+        String currentDir = snake.getDirection();
 
-        // Xử lý đổi hướng cho rắn
-        if (key == KeyEvent.VK_UP && !lastDir.equals("DOWN")) {
+        if ((key == KeyEvent.VK_UP || key == KeyEvent.VK_W) && !currentDir.equals("DOWN")) 
             snake.setDirection("UP");
-        } else if (key == KeyEvent.VK_DOWN && !lastDir.equals("UP")) {
+        if ((key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) && !currentDir.equals("UP")) 
             snake.setDirection("DOWN");
-        } else if (key == KeyEvent.VK_LEFT && !lastDir.equals("RIGHT")) {
+        if ((key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) && !currentDir.equals("RIGHT")) 
             snake.setDirection("LEFT");
-        } else if (key == KeyEvent.VK_RIGHT && !lastDir.equals("LEFT")) {
+        if ((key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) && !currentDir.equals("LEFT")) 
             snake.setDirection("RIGHT");
-        }
     }
 }

@@ -12,21 +12,17 @@ public class MenuPanel extends JPanel {
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(34, 139, 34));
         
-        // ===== PHẦN TIÊU ĐỀ =====
         JPanel titlePanel = createTitlePanel();
         
-        // ===== PHẦN SỐC ĐƠNG =====
         JPanel buttonPanel = createButtonPanel();
         
-        // ===== PHẦN FOOTER =====
         JPanel footerPanel = createFooterPanel();
         
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(buttonPanel, BorderLayout.CENTER);
         this.add(footerPanel, BorderLayout.SOUTH);
     }
-    
-    // Tạo panel tiêu đề
+
     private JPanel createTitlePanel() {
         JPanel panel = new JPanel() {
             @Override
@@ -35,13 +31,11 @@ public class MenuPanel extends JPanel {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
-                // Vẽ nền gradient đẹp hơn với 3 màu
                 GradientPaint gradient = new GradientPaint(0, 0, new Color(76, 175, 80),
                         0, getHeight() / 2, new Color(56, 142, 60));
                 g2d.setPaint(gradient);
                 g2d.fillRect(0, 0, getWidth(), getHeight());
                 
-                // Thêm hiệu ứng sáng ở trên
                 GradientPaint highlight = new GradientPaint(0, 0, new Color(255, 255, 255, 50),
                         0, getHeight() / 3, new Color(255, 255, 255, 0));
                 g2d.setPaint(highlight);
@@ -58,7 +52,7 @@ public class MenuPanel extends JPanel {
         topDecor.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         // Tiêu đề chính
-        JLabel title = new JLabel("GAME RẮN ĂN MỒI");
+        JLabel title = new JLabel("SNAKE GAME");
         title.setFont(new Font("Arial", Font.BOLD, 64));
         title.setForeground(Color.WHITE);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -70,12 +64,11 @@ public class MenuPanel extends JPanel {
         slogan.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         // Mô tả game
-        JLabel desc = new JLabel("Điều khiển rắn, ăn tạo, tránh bẫy và chướng ngại vật!");
+        JLabel desc = new JLabel("Dieu khien ran, an tao va tranh chuong ngai vat!");
         desc.setFont(new Font("Arial", Font.ITALIC, 18));
         desc.setForeground(new Color(255, 255, 200));
         desc.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        // Biểu tượng trang trí dưới
+
         JLabel bottomDecor = new JLabel("🐍 ═══════════════════════ 🐍");
         bottomDecor.setFont(new Font("Arial", Font.BOLD, 24));
         bottomDecor.setForeground(Color.WHITE);
@@ -93,8 +86,7 @@ public class MenuPanel extends JPanel {
         
         return panel;
     }
-    
-    // Tạo panel nút
+
     private JPanel createButtonPanel() {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(34, 139, 34));
@@ -118,8 +110,7 @@ public class MenuPanel extends JPanel {
         
         return panel;
     }
-    
-    // Tạo panel footer
+
     private JPanel createFooterPanel() {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(20, 100, 20));
@@ -142,16 +133,14 @@ public class MenuPanel extends JPanel {
         
         return panel;
     }
-    
-    // Tạo nút hiện đại với hiệu ứng đẹp
+
     private JButton createModernButton(String text, Color bgColor) {
         JButton btn = new JButton(text) {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                
-                // Xác định màu sắc theo trạng thái
+
                 Color fillColor = bgColor;
                 Color borderColor = Color.WHITE;
                 
@@ -170,12 +159,10 @@ public class MenuPanel extends JPanel {
                     );
                     borderColor = new Color(255, 255, 100);
                 }
-                
-                // Vẽ shadow
+
                 g2d.setColor(new Color(0, 0, 0, 80));
                 g2d.fillRoundRect(2, 2, getWidth()-2, getHeight()-2, 20, 20);
-                
-                // Vẽ nút chính với gradient
+
                 GradientPaint gradient = new GradientPaint(
                     0, 0, fillColor,
                     0, getHeight(), new Color(
@@ -186,14 +173,12 @@ public class MenuPanel extends JPanel {
                 );
                 g2d.setPaint(gradient);
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-                
-                // Vẽ border sáng ở trên
+
                 if (getModel().isRollover()) {
                     g2d.setColor(new Color(255, 255, 255, 100));
                     g2d.fillRoundRect(0, 0, getWidth(), getHeight()/3, 20, 20);
                 }
-                
-                // Border
+
                 g2d.setColor(borderColor);
                 g2d.setStroke(new BasicStroke(3));
                 g2d.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 20, 20);
@@ -223,13 +208,11 @@ public class MenuPanel extends JPanel {
         
         return btn;
     }
-    
-    // Getter cho nút
+
     public JButton getBtnPlay() { return btnPlay; }
     public JButton getBtnHighscore() { return btnHighscore; }
     public JButton getBtnExit() { return btnExit; }
     
-    // Thêm listener
     public void addPlayListener(ActionListener l) { btnPlay.addActionListener(l); }
     public void addHighscoreListener(ActionListener l) { btnHighscore.addActionListener(l); }
     public void addExitListener(ActionListener l) { btnExit.addActionListener(l); }

@@ -1,6 +1,5 @@
 package utils;
 
-// 1. Thêm đầy đủ các dòng import này vào đầu file
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -12,12 +11,10 @@ public class AssetManager {
         try {
             File file = new File(path);
             if (!file.exists()) {
-                // Sửa lỗi chính tả IOException
                 throw new IOException("Không tìm thấy file: " + path);
             }
             return ImageIO.read(file);
         } catch (IOException e) {
-            // JOptionPane giờ đã có import nên sẽ hết lỗi
             JOptionPane.showMessageDialog(null,
                 "Lỗi nạp tài nguyên: " + e.getMessage(),
                 "Lỗi hệ thống",

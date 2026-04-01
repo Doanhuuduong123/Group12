@@ -1,21 +1,20 @@
 package model;
 
+import java.util.Random;
+
 public class Wall extends GameObject {
-    private int width;
-    private int height;
+    private String direction;
 
     public Wall(int x, int y, int size) {
         super(x, y, size);
-        this.width = size;
-        this.height = size;
+        
+        // Random 1 trong 4 hướng bất kỳ cho khối block
+        String[] dirs = {"UP", "DOWN", "LEFT", "RIGHT"};
+        this.direction = dirs[new Random().nextInt(4)];
     }
-    
-    public Wall(int x, int y, int width, int height) {
-        super(x, y, 25); // Default size = 25
-        this.width = width;
-        this.height = height;
+
+    // Getter để View lấy hướng ra vẽ
+    public String getDirection() {
+        return direction;
     }
-    
-    public int getWidth() { return width; }
-    public int getHeight() { return height; }
 }
