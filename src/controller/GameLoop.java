@@ -8,6 +8,7 @@ import view.GamePanel;
 import view.MainFrame;
 import utils.SoundManager; // Import bộ quản lý âm thanh
 import javax.sound.sampled.Clip; // Import thư viện âm thanh của Java
+import utils.ExceptionHandler; // Import ExceptionHandler for saving scores
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class GameLoop extends Thread {
     // Biến lưu trữ âm thanh
     private Clip bgMusic;
     private Clip eatSound;
+    private static final String HIGHSCORE_FILE = "highscores.txt"; // Define highscore file name
 
     public GameLoop(GamePanel gp, Snake s, Food f, GameData gd, MainFrame mf, ArrayList<Integer> scores) {
         this.gamePanel = gp; this.snake = s; this.food = f; 
@@ -50,7 +52,10 @@ public class GameLoop extends Thread {
             gamePanel.repaint();
 
             try {
-                Thread.sleep(120);
+                // Tốc độ cơ bản 120ms, mỗi 10 điểm (1 quả táo thường) giảm 2ms để nhanh hơn
+                // Giới hạn tối thiểu là 40ms để không quá nhanh
+                int delay = Math.max(40, 120 - (gameData.getScore() / 10) * 2);
+                Thread.sleep(delay);
             } catch (InterruptedException e) {
                 break;
             }
@@ -59,6 +64,7 @@ public class GameLoop extends Thread {
         if (!snake.isAlive() && running) {
             SoundManager.stopSound(bgMusic); // Rắn chết -> Tắt nhạc nền ngay lập tức
             scores.add(gameData.getScore());
+            ExceptionHandler.writeHighscores(HIGHSCORE_FILE, scores); // Save scores after adding
             mainFrame.showGameOver(gameData.getScore());
         }
     }

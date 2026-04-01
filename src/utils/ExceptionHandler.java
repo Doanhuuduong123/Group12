@@ -1,6 +1,9 @@
 package utils;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import javax.swing.JOptionPane;
 
 public class ExceptionHandler {
 
@@ -26,6 +29,50 @@ public class ExceptionHandler {
         } catch (Exception e) {
             System.out.println(" [WARN] Khong doc duoc file, tra ve 0");
             return 0;
+        }
+    }
+
+    // New method to read multiple high scores
+    public static ArrayList<Integer> readHighscores(String fileName) {
+        ArrayList<Integer> scores = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    scores.add(Integer.parseInt(line.trim()));
+                } catch (NumberFormatException e) {
+                    System.err.println(" [WARN] Bo qua dong khong hop le trong file highscore: " + line);
+                }
+            }
+            Collections.sort(scores, Collections.reverseOrder()); // Sort descending
+        } catch (FileNotFoundException e) {
+            // File doesn't exist yet, return empty list (normal for first run)
+            System.out.println(" [INFO] File highscore chua ton tai: " + fileName);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,
+                "Lỗi đọc file kỷ lục: " + e.getMessage(),
+                "Lỗi hệ thống",
+                JOptionPane.ERROR_MESSAGE);
+            logError(e);
+        }
+        return scores;
+    }
+
+    // New method to write multiple high scores
+    public static void writeHighscores(String fileName, ArrayList<Integer> scores) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            ArrayList<Integer> sortedScores = new ArrayList<>(scores);
+            Collections.sort(sortedScores, Collections.reverseOrder()); // Sort descending before writing
+            for (Integer score : sortedScores) {
+                writer.write(score.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,
+                "Lỗi ghi file kỷ lục: " + e.getMessage(),
+                "Lỗi hệ thống",
+                JOptionPane.ERROR_MESSAGE);
+            logError(e);
         }
     }
 

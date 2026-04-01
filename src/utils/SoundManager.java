@@ -2,6 +2,7 @@ package utils;
 
 import javax.sound.sampled.*;
 import java.io.File;
+import javax.swing.JOptionPane;
 
 public class SoundManager {
     
@@ -14,6 +15,11 @@ public class SoundManager {
             return clip;
         } catch (Exception e) {
             System.err.println("Lỗi nạp âm thanh: " + fileName + " (Lưu ý: Chỉ hỗ trợ file .wav)");
+            // Changed to JOptionPane for user-friendly error message
+            JOptionPane.showMessageDialog(null,
+                "Lỗi nạp âm thanh: " + fileName + " (Lưu ý: Chỉ hỗ trợ file .wav)\nChi tiết: " + e.getMessage(),
+                "Lỗi âm thanh",
+                JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
