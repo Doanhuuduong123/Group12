@@ -16,7 +16,7 @@ public class MainFrame extends JFrame {
     private JLabel scoreLabel;
 
     public MainFrame() {
-        setTitle("SNAKE GAME - DA VANG TU DIA NGUC");
+        setTitle("SNAKE GAME - LEGENDARY");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(950, 750);
         setLocationRelativeTo(null);
@@ -34,8 +34,8 @@ public class MainFrame extends JFrame {
 
     private void setupScorePanel() {
         scorePanel = new JPanel();
-        scorePanel.setBackground(new Color(76, 175, 80)); 
-        scoreLabel = new JLabel("🏆 DIEM SO: 0");
+        scorePanel.setBackground(new Color(45, 45, 45)); 
+        scoreLabel = new JLabel("SCORE: 0");
         scoreLabel.setFont(new Font("Arial", Font.BOLD, 24));
         scoreLabel.setForeground(Color.WHITE);
         scorePanel.add(scoreLabel);
@@ -70,7 +70,7 @@ public class MainFrame extends JFrame {
     }
 
     public void setScore(int score) {
-        scoreLabel.setText("🏆 DIEM SO: " + score);
+        scoreLabel.setText("SCORE: " + score);
     }
 
     public void showGameOver(int score) {
@@ -83,7 +83,7 @@ public class MainFrame extends JFrame {
 
     private class GameOverDialog extends JDialog {
         public GameOverDialog(Frame owner, int score) {
-            super(owner, "KET THUC", true);
+            super(owner, "GAME OVER", true);
             setSize(400, 300);
             setLocationRelativeTo(owner);
             setLayout(new BorderLayout());
@@ -92,14 +92,14 @@ public class MainFrame extends JFrame {
                 @Override
                 protected void paintComponent(Graphics g) {
                     Graphics2D g2d = (Graphics2D) g;
-                    g2d.setPaint(new GradientPaint(0, 0, new Color(255, 80, 80), 0, getHeight(), new Color(150, 0, 0)));
+                    g2d.setPaint(new GradientPaint(0, 0, new Color(80, 20, 20), 0, getHeight(), new Color(40, 0, 0)));
                     g2d.fillRect(0, 0, getWidth(), getHeight());
                 }
             };
             content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
             content.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-            JLabel lblOver = new JLabel("💀 GAME OVER 💀");
+            JLabel lblOver = new JLabel("GAME OVER");
             lblOver.setFont(new Font("Arial Black", Font.BOLD, 28));
             lblOver.setForeground(Color.WHITE);
             lblOver.setAlignmentX(CENTER_ALIGNMENT);
@@ -109,7 +109,7 @@ public class MainFrame extends JFrame {
             lblScore.setForeground(Color.YELLOW);
             lblScore.setAlignmentX(CENTER_ALIGNMENT);
 
-            JButton btnBack = new JButton("QUAY VE MENU");
+            JButton btnBack = new JButton("BACK TO MENU");
             btnBack.setAlignmentX(CENTER_ALIGNMENT);
             btnBack.addActionListener(e -> {
                 dispose();

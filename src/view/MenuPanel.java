@@ -10,7 +10,7 @@ public class MenuPanel extends JPanel {
     
     public MenuPanel() {
         this.setLayout(new BorderLayout());
-        this.setBackground(new Color(34, 139, 34));
+        this.setBackground(new Color(30, 30, 30)); // Dark background
         
         JPanel titlePanel = createTitlePanel();
         
@@ -31,13 +31,13 @@ public class MenuPanel extends JPanel {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
-                GradientPaint gradient = new GradientPaint(0, 0, new Color(76, 175, 80),
-                        0, getHeight() / 2, new Color(56, 142, 60));
+                GradientPaint gradient = new GradientPaint(0, 0, new Color(45, 45, 45),
+                        0, getHeight(), new Color(20, 20, 20));
                 g2d.setPaint(gradient);
                 g2d.fillRect(0, 0, getWidth(), getHeight());
                 
                 GradientPaint highlight = new GradientPaint(0, 0, new Color(255, 255, 255, 50),
-                        0, getHeight() / 3, new Color(255, 255, 255, 0));
+                        0, getHeight() / 4, new Color(255, 255, 255, 0));
                 g2d.setPaint(highlight);
                 g2d.fillRect(0, 0, getWidth(), getHeight() / 3);
             }
@@ -46,7 +46,7 @@ public class MenuPanel extends JPanel {
         panel.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
         
         // Biểu tượng trang trí
-        JLabel topDecor = new JLabel("🐍 ═══════════════════════ 🐍");
+        JLabel topDecor = new JLabel("=== SNAKE ===");
         topDecor.setFont(new Font("Arial", Font.BOLD, 24));
         topDecor.setForeground(Color.WHITE);
         topDecor.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -54,26 +54,21 @@ public class MenuPanel extends JPanel {
         // Tiêu đề chính
         JLabel title = new JLabel("SNAKE GAME");
         title.setFont(new Font("Arial", Font.BOLD, 64));
-        title.setForeground(Color.WHITE);
+        title.setForeground(new Color(255, 215, 0)); // Gold color
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         // Slogan game
-        JLabel slogan = new JLabel("🎮 LẬP ĐẢ VÀNG TỪ MIỀN ĐỊA NGỤC 🎮");
+        JLabel slogan = new JLabel("CHINH PHUC DIEM SO CAO");
         slogan.setFont(new Font("Arial", Font.BOLD, 20));
-        slogan.setForeground(new Color(255, 255, 150));
+        slogan.setForeground(new Color(200, 200, 200));
         slogan.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         // Mô tả game
-        JLabel desc = new JLabel("Dieu khien ran, an tao va tranh chuong ngai vat!");
-        desc.setFont(new Font("Arial", Font.ITALIC, 18));
+        JLabel desc = new JLabel("An moi de lon nhanh va tranh vat can");
+        desc.setFont(new Font("Arial", Font.PLAIN, 18));
         desc.setForeground(new Color(255, 255, 200));
         desc.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel bottomDecor = new JLabel("🐍 ═══════════════════════ 🐍");
-        bottomDecor.setFont(new Font("Arial", Font.BOLD, 24));
-        bottomDecor.setForeground(Color.WHITE);
-        bottomDecor.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
         panel.add(topDecor);
         panel.add(Box.createVerticalStrut(5));
         panel.add(title);
@@ -81,15 +76,14 @@ public class MenuPanel extends JPanel {
         panel.add(slogan);
         panel.add(Box.createVerticalStrut(8));
         panel.add(desc);
-        panel.add(Box.createVerticalStrut(5));
-        panel.add(bottomDecor);
+        panel.add(Box.createVerticalStrut(20));
         
         return panel;
     }
 
     private JPanel createButtonPanel() {
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(34, 139, 34));
+        panel.setBackground(new Color(30, 30, 30));
         panel.setLayout(new GridBagLayout());
         
         GridBagConstraints gbc = new GridBagConstraints();
@@ -98,9 +92,9 @@ public class MenuPanel extends JPanel {
         gbc.insets = new Insets(20, 100, 20, 100);
         gbc.ipady = 25;
         
-        btnPlay = createModernButton("▶️  CHƠI NGAY", new Color(76, 175, 80));
-        btnHighscore = createModernButton("🏆  BẢNG XẾP HẠNG", new Color(255, 152, 0));
-        btnExit = createModernButton("❌  THOÁT GAME", new Color(229, 57, 53));
+        btnPlay = createModernButton("PLAY GAME", new Color(60, 120, 60));
+        btnHighscore = createModernButton("HIGHSCORE", new Color(70, 70, 70));
+        btnExit = createModernButton("EXIT", new Color(150, 50, 50));
         
         panel.add(btnPlay, gbc);
         panel.add(Box.createVerticalStrut(10));
@@ -113,17 +107,17 @@ public class MenuPanel extends JPanel {
 
     private JPanel createFooterPanel() {
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(20, 100, 20));
+        panel.setBackground(new Color(20, 20, 20));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
         
-        JLabel info = new JLabel("🕹️  HƯỚNG DẪN: ↑↓←→ để điều khiển rắn");
+        JLabel info = new JLabel("DIEU KHIEN: Su dung cac phim mui ten");
         info.setFont(new Font("Arial", Font.BOLD, 14));
-        info.setForeground(new Color(255, 255, 150));
+        info.setForeground(Color.LIGHT_GRAY);
         info.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        JLabel score = new JLabel("📍 ĐIỂM SỐ: Mỗi con mồi ăn được = +1 điểm | Tránh bẫy = sống sót!");
-        score.setFont(new Font("Arial", Font.PLAIN, 13));
+        JLabel score = new JLabel("Moi con moi an duoc se tang diem so cua ban");
+        score.setFont(new Font("Arial", Font.ITALIC, 13));
         score.setForeground(Color.WHITE);
         score.setAlignmentX(Component.CENTER_ALIGNMENT);
         

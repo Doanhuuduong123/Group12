@@ -16,7 +16,7 @@ public class ShowHighscorePanel extends JPanel {
     public ShowHighscorePanel(ArrayList<Integer> scores) {
         this.scores = scores;
         this.setLayout(new BorderLayout());
-        this.setBackground(new Color(34, 139, 34));
+        this.setBackground(new Color(25, 25, 25));
         
         JPanel titlePanel = new JPanel() {
             @Override
@@ -25,8 +25,8 @@ public class ShowHighscorePanel extends JPanel {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
-                GradientPaint gradient = new GradientPaint(0, 0, new Color(76, 175, 80),
-                        0, getHeight(), new Color(56, 142, 60));
+                GradientPaint gradient = new GradientPaint(0, 0, new Color(60, 60, 60),
+                        0, getHeight(), new Color(30, 30, 30));
                 g2d.setPaint(gradient);
                 g2d.fillRect(0, 0, getWidth(), getHeight());
             }
@@ -34,7 +34,7 @@ public class ShowHighscorePanel extends JPanel {
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
         titlePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         
-        JLabel title = new JLabel("🏆 RANKING 🏆");
+        JLabel title = new JLabel("RANKING");
         title.setFont(new Font("Arial Black", Font.BOLD, 44));
         title.setForeground(Color.WHITE);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -51,10 +51,10 @@ public class ShowHighscorePanel extends JPanel {
         JPanel statsPanel = createStatsPanel(scores);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(new Color(20, 100, 20));
+        buttonPanel.setBackground(new Color(20, 20, 20));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         
-        btnBack = new JButton("◀️  BACK MENU");
+        btnBack = new JButton("BACK TO MENU");
         btnBack.setFont(new Font("Arial", Font.BOLD, 18));
         btnBack.setForeground(Color.WHITE);
         btnBack.setBackground(new Color(100, 100, 100));
@@ -77,7 +77,7 @@ public class ShowHighscorePanel extends JPanel {
         buttonPanel.add(btnBack);
         
         JPanel centerContainer = new JPanel(new BorderLayout());
-        centerContainer.setBackground(new Color(34, 139, 34));
+        centerContainer.setBackground(new Color(25, 25, 25));
         centerContainer.add(tablePanel, BorderLayout.CENTER);
         centerContainer.add(statsPanel, BorderLayout.SOUTH);
         
@@ -88,10 +88,10 @@ public class ShowHighscorePanel extends JPanel {
     
     private JPanel createTablePanel(ArrayList<Integer> scores) {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(34, 139, 34));
+        panel.setBackground(new Color(25, 25, 25));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         
-        String[] columnNames = {"🥇 Hạng", "📊 Điểm Số", "⭐ Đánh Giá"};
+        String[] columnNames = {"RANK", "SCORE", "RATING"};
         Object[][] data = new Object[10][3];
         
         ArrayList<Integer> sortedScores = new ArrayList<>(scores);
@@ -101,24 +101,24 @@ public class ShowHighscorePanel extends JPanel {
             int score = (i < sortedScores.size()) ? sortedScores.get(i) : 0;
             String rank = (i + 1) + "";
             
-            if (i == 0) rank = "🥇 " + rank;  
-            else if (i == 1) rank = "🥈 " + rank;
-            else if (i == 2) rank = "🥉 " + rank;
+            if (i == 0) rank = "1st";  
+            else if (i == 1) rank = "2nd";
+            else if (i == 2) rank = "3rd";
             
             String rating = "";
             
             if (score == 0) {
                 rating = "---";
             } else if (score >= 100) {
-                rating = "⭐⭐⭐⭐⭐ SIÊU SAO";
+                rating = "LEGEND";
             } else if (score >= 80) {
-                rating = "⭐⭐⭐⭐ VÔ CÙNG TỐT";
+                rating = "MASTER";
             } else if (score >= 60) {
-                rating = "⭐⭐⭐ TỐT";
+                rating = "PRO";
             } else if (score >= 40) {
-                rating = "⭐⭐ TRUNG BÌNH";
+                rating = "AVERAGE";
             } else if (score > 0) {
-                rating = "⭐ CHƯA TỐT";
+                rating = "NEWBIE";
             }
             
             data[i][0] = rank;
@@ -136,16 +136,16 @@ public class ShowHighscorePanel extends JPanel {
         table = new JTable(model);
         table.setFont(new Font("Arial", Font.BOLD, 18));
         table.setRowHeight(50);
-        table.setBackground(new Color(50, 205, 50));
+        table.setBackground(new Color(45, 45, 45));
         table.setForeground(Color.WHITE);
-        table.setGridColor(new Color(34, 139, 34));
+        table.setGridColor(new Color(60, 60, 60));
         table.setShowGrid(true);
-        table.setSelectionBackground(new Color(100, 200, 100));
+        table.setSelectionBackground(new Color(80, 80, 80));
         table.setSelectionForeground(Color.WHITE);
 
-        table.getTableHeader().setBackground(new Color(34, 139, 34));
+        table.getTableHeader().setBackground(new Color(40, 40, 40));
         table.getTableHeader().setForeground(Color.WHITE);
-        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 24));
+        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 20));
         table.getTableHeader().setPreferredSize(new Dimension(0, 50));
         
         DefaultTableCellRenderer gradientRenderer = new DefaultTableCellRenderer() {
@@ -155,14 +155,14 @@ public class ShowHighscorePanel extends JPanel {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 
                 if (isSelected) {
-                    c.setBackground(new Color(100, 200, 100));
+                    c.setBackground(new Color(100, 100, 100));
                 } else {
                     if (row < 3) {
-                        c.setBackground(new Color(100, 220, 100));
+                        c.setBackground(new Color(55, 55, 55));
                     } else if (row < 6) {
-                        c.setBackground(new Color(80, 200, 80));
+                        c.setBackground(new Color(45, 45, 45));
                     } else {
-                        c.setBackground(new Color(60, 180, 60));
+                        c.setBackground(new Color(35, 35, 35));
                     }
                 }
                 
@@ -179,7 +179,7 @@ public class ShowHighscorePanel extends JPanel {
         }
         
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBackground(new Color(34, 139, 34));
+        scrollPane.setBackground(new Color(25, 25, 25));
         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(255, 215, 0), 4));
         
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -188,7 +188,7 @@ public class ShowHighscorePanel extends JPanel {
     
     private JPanel createStatsPanel(ArrayList<Integer> scores) {
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(20, 100, 20));
+        panel.setBackground(new Color(20, 20, 20));
         panel.setBorder(BorderFactory.createEmptyBorder(15, 50, 15, 50));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         
@@ -202,7 +202,7 @@ public class ShowHighscorePanel extends JPanel {
         int gameCount = scores.size();
         
         JLabel statsLabel = new JLabel(
-            String.format("📊 CẬP NHẬT | Cao nhất: %d | Thấp nhất: %d | Trung bình: %.1f | Tổng lượt: %d | Tổng điểm: %d",
+            String.format("THONG KE | Cao nhat: %d | Thap nhat: %d | Trung binh: %.1f | Luot choi: %d | Tong diem: %d",
                 maxScore, minScore, avgScore, gameCount, totalScore)
         );
         statsLabel.setFont(new Font("Arial", Font.BOLD, 16));
