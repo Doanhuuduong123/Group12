@@ -51,6 +51,7 @@ Mã nguồn được tổ chức chặt chẽ theo mô hình **MVC** (Model - Vi
 
 ## 📸 Ảnh chụp màn hình (Screenshots)
 *Dưới đây là giao diện minh họa của trò chơi:*
+
 [Giao diện Menu Game] https://drive.google.com/file/d/1MScwdcii85BYbQGkD2lhA75UDdXPGM1l/view?usp=sharing
 [Giao diện Game] https://drive.google.com/file/d/1yx96RZjDZkK1yq1O69kx-D9TdrEwBhBL/view?usp=sharing
 [Game Over] https://drive.google.com/file/d/18YYqxIJtg34A9k1boO35SU86Fl6_2R4t/view?usp=sharing
