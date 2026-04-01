@@ -19,15 +19,34 @@ public class ShowHighscorePanel extends JPanel {
         this.setBackground(new Color(34, 139, 34));
         
         // ===== PHẦN TIÊU ĐỀ =====
-        JPanel titlePanel = new JPanel();
-        titlePanel.setBackground(new Color(50, 205, 50));
+        JPanel titlePanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                // Vẽ gradient nền
+                GradientPaint gradient = new GradientPaint(0, 0, new Color(76, 175, 80),
+                        0, getHeight(), new Color(56, 142, 60));
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
         titlePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         
-        JLabel title = new JLabel("🏆 BẢNG XẾP HẠNG TOP 10 🏆");
-        title.setFont(new Font("Arial Black", Font.BOLD, 40));
+        JLabel title = new JLabel("🏆 BẢNG XẾP HẠNG THẾ GIỚI 🏆");
+        title.setFont(new Font("Arial Black", Font.BOLD, 44));
         title.setForeground(Color.WHITE);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         titlePanel.add(title);
+        
+        JLabel subtitle = new JLabel("Những VĐV hàng đầu");
+        subtitle.setFont(new Font("Arial", Font.ITALIC, 18));
+        subtitle.setForeground(new Color(255, 255, 150));
+        subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titlePanel.add(subtitle);
         
         // ===== PHẦN BẢNG =====
         JPanel tablePanel = createTablePanel(scores);
@@ -47,7 +66,7 @@ public class ShowHighscorePanel extends JPanel {
         btnBack.setFocusPainted(false);
         btnBack.setBorderPainted(false);
         btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnBack.setPreferredSize(new Dimension(200, 50));
+        btnBack.setPreferredSize(new Dimension(250, 50));
         
         btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -182,7 +201,7 @@ public class ShowHighscorePanel extends JPanel {
     
     private JPanel createStatsPanel(ArrayList<Integer> scores) {
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(34, 139, 34));
+        panel.setBackground(new Color(20, 100, 20));
         panel.setBorder(BorderFactory.createEmptyBorder(15, 50, 15, 50));
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         
@@ -198,8 +217,8 @@ public class ShowHighscorePanel extends JPanel {
         
         // Tạo các label thống kê
         JLabel statsLabel = new JLabel(
-            String.format("📈 THỐNG KÊ | Tổng: %d | Cao nhất: %d | Thấp nhất: %d | TB: %.1f | Trò chơi: %d",
-                totalScore, maxScore, minScore, avgScore, gameCount)
+            String.format("📊 CẬP NHẬT | Cao nhất: %d | Thấp nhất: %d | Trung bình: %.1f | Tổng lượt: %d | Tổng điểm: %d",
+                maxScore, minScore, avgScore, gameCount, totalScore)
         );
         statsLabel.setFont(new Font("Arial", Font.BOLD, 16));
         statsLabel.setForeground(new Color(255, 215, 0));

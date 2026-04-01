@@ -33,31 +33,63 @@ public class MenuPanel extends JPanel {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
-                // Vẽ nền gradient đẹp
-                GradientPaint gradient = new GradientPaint(0, 0, new Color(50, 205, 50),
-                        0, getHeight(), new Color(34, 139, 34));
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                // Vẽ nền gradient đẹp hơn với 3 màu
+                GradientPaint gradient = new GradientPaint(0, 0, new Color(76, 175, 80),
+                        0, getHeight() / 2, new Color(56, 142, 60));
                 g2d.setPaint(gradient);
                 g2d.fillRect(0, 0, getWidth(), getHeight());
+                
+                // Thêm hiệu ứng sáng ở trên
+                GradientPaint highlight = new GradientPaint(0, 0, new Color(255, 255, 255, 50),
+                        0, getHeight() / 3, new Color(255, 255, 255, 0));
+                g2d.setPaint(highlight);
+                g2d.fillRect(0, 0, getWidth(), getHeight() / 3);
             }
         };
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(40, 20, 40, 20));
+        panel.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
+        
+        // Biểu tượng trang trí
+        JLabel topDecor = new JLabel("🐍 ═══════════════════════ 🐍");
+        topDecor.setFont(new Font("Arial", Font.BOLD, 24));
+        topDecor.setForeground(Color.WHITE);
+        topDecor.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         // Tiêu đề chính
-        JLabel title = new JLabel("GAME RAN AN MOI");
-        title.setFont(new Font("Arial", Font.BOLD, 56));
+        JLabel title = new JLabel("GAME RẮN ĂN MỒI");
+        title.setFont(new Font("Arial", Font.BOLD, 64));
         title.setForeground(Color.WHITE);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         
+        // Slogan game
+        JLabel slogan = new JLabel("🎮 LẬP ĐẢ VÀNG TỪ MIỀN ĐỊA NGỤC 🎮");
+        slogan.setFont(new Font("Arial", Font.BOLD, 20));
+        slogan.setForeground(new Color(255, 255, 150));
+        slogan.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
         // Mô tả game
-        JLabel desc = new JLabel("Dieu khien ran, an tao, tranh va cham!");
+        JLabel desc = new JLabel("Điều khiển rắn, ăn tạo, tránh bẫy và chướng ngại vật!");
         desc.setFont(new Font("Arial", Font.ITALIC, 18));
         desc.setForeground(new Color(255, 255, 200));
         desc.setAlignmentX(Component.CENTER_ALIGNMENT);
         
+        // Biểu tượng trang trí dưới
+        JLabel bottomDecor = new JLabel("🐍 ═══════════════════════ 🐍");
+        bottomDecor.setFont(new Font("Arial", Font.BOLD, 24));
+        bottomDecor.setForeground(Color.WHITE);
+        bottomDecor.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        panel.add(topDecor);
+        panel.add(Box.createVerticalStrut(5));
         panel.add(title);
         panel.add(Box.createVerticalStrut(10));
+        panel.add(slogan);
+        panel.add(Box.createVerticalStrut(8));
         panel.add(desc);
+        panel.add(Box.createVerticalStrut(5));
+        panel.add(bottomDecor);
         
         return panel;
     }
@@ -71,12 +103,12 @@ public class MenuPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(15, 150, 15, 150);
-        gbc.ipady = 20;
+        gbc.insets = new Insets(20, 100, 20, 100);
+        gbc.ipady = 25;
         
-        btnPlay = createModernButton("CHOI MOI", new Color(34, 200, 34));
-        btnHighscore = createModernButton("BANG XEP HANG", new Color(255, 165, 0));
-        btnExit = createModernButton("THOAT GAME", new Color(220, 50, 50));
+        btnPlay = createModernButton("▶️  CHƠI NGAY", new Color(76, 175, 80));
+        btnHighscore = createModernButton("🏆  BẢNG XẾP HẠNG", new Color(255, 152, 0));
+        btnExit = createModernButton("❌  THOÁT GAME", new Color(229, 57, 53));
         
         panel.add(btnPlay, gbc);
         panel.add(Box.createVerticalStrut(10));
@@ -91,17 +123,27 @@ public class MenuPanel extends JPanel {
     private JPanel createFooterPanel() {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(20, 100, 20));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
         
-        JLabel info = new JLabel("Huong dan: ↑↓←→ de dieu khien | Diem = So tao an duoc");
-        info.setFont(new Font("Arial", Font.PLAIN, 14));
-        info.setForeground(Color.WHITE);
+        JLabel info = new JLabel("🕹️  HƯỚNG DẪN: ↑↓←→ để điều khiển rắn");
+        info.setFont(new Font("Arial", Font.BOLD, 14));
+        info.setForeground(new Color(255, 255, 150));
+        info.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JLabel score = new JLabel("📍 ĐIỂM SỐ: Mỗi con mồi ăn được = +1 điểm | Tránh bẫy = sống sót!");
+        score.setFont(new Font("Arial", Font.PLAIN, 13));
+        score.setForeground(Color.WHITE);
+        score.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         panel.add(info);
+        panel.add(Box.createVerticalStrut(5));
+        panel.add(score);
+        
         return panel;
     }
     
-    // Tạo nút hiện đại
+    // Tạo nút hiện đại với hiệu ứng đẹp
     private JButton createModernButton(String text, Color bgColor) {
         JButton btn = new JButton(text) {
             @Override
@@ -109,39 +151,64 @@ public class MenuPanel extends JPanel {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
+                // Xác định màu sắc theo trạng thái
+                Color fillColor = bgColor;
+                Color borderColor = Color.WHITE;
+                
                 if (getModel().isPressed()) {
-                    g2d.setColor(new Color(
-                        Math.max(bgColor.getRed() - 40, 0),
-                        Math.max(bgColor.getGreen() - 40, 0),
-                        Math.max(bgColor.getBlue() - 40, 0)
-                    ));
+                    fillColor = new Color(
+                        Math.max(bgColor.getRed() - 50, 0),
+                        Math.max(bgColor.getGreen() - 50, 0),
+                        Math.max(bgColor.getBlue() - 50, 0)
+                    );
+                    borderColor = new Color(200, 200, 200);
                 } else if (getModel().isRollover()) {
-                    g2d.setColor(new Color(
-                        Math.min(bgColor.getRed() + 40, 255),
-                        Math.min(bgColor.getGreen() + 40, 255),
-                        Math.min(bgColor.getBlue() + 40, 255)
-                    ));
-                } else {
-                    g2d.setColor(bgColor);
+                    fillColor = new Color(
+                        Math.min(bgColor.getRed() + 30, 255),
+                        Math.min(bgColor.getGreen() + 30, 255),
+                        Math.min(bgColor.getBlue() + 30, 255)
+                    );
+                    borderColor = new Color(255, 255, 100);
                 }
                 
-                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+                // Vẽ shadow
+                g2d.setColor(new Color(0, 0, 0, 80));
+                g2d.fillRoundRect(2, 2, getWidth()-2, getHeight()-2, 20, 20);
+                
+                // Vẽ nút chính với gradient
+                GradientPaint gradient = new GradientPaint(
+                    0, 0, fillColor,
+                    0, getHeight(), new Color(
+                        Math.max(fillColor.getRed() - 20, 0),
+                        Math.max(fillColor.getGreen() - 20, 0),
+                        Math.max(fillColor.getBlue() - 20, 0)
+                    )
+                );
+                g2d.setPaint(gradient);
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+                
+                // Vẽ border sáng ở trên
+                if (getModel().isRollover()) {
+                    g2d.setColor(new Color(255, 255, 255, 100));
+                    g2d.fillRoundRect(0, 0, getWidth(), getHeight()/3, 20, 20);
+                }
                 
                 // Border
-                g2d.setColor(Color.WHITE);
-                g2d.setStroke(new BasicStroke(2));
-                g2d.drawRoundRect(1, 1, getWidth()-3, getHeight()-3, 15, 15);
+                g2d.setColor(borderColor);
+                g2d.setStroke(new BasicStroke(3));
+                g2d.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 20, 20);
                 
                 super.paintComponent(g);
             }
         };
         
-        btn.setFont(new Font("Arial", Font.BOLD, 22));
+        btn.setFont(new Font("Arial Black", Font.BOLD, 24));
         btn.setForeground(Color.WHITE);
         btn.setBorderPainted(false);
         btn.setContentAreaFilled(false);
         btn.setFocusPainted(false);
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn.setPreferredSize(new Dimension(350, 60));
         
         btn.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
