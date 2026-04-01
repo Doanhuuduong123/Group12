@@ -7,7 +7,7 @@
 | :-- | :--- | :--- | :--- | :--- |
 | 1 | **Đoàn Hữu Dương** | MSV:3120225034 25CNTT3 | **Phần 1**: Code Controller, Xử lý va chạm, Game Loop | [GitHub] (https://github.com/Doanhuuduong123) |
 | 2 | **Phan Trần Mai Uyên** (Nhóm trưởng) |MSV:3120225174 25CNTT3 | **Phần 2**: Code View, Thiết kế giao diện Menu, Đồ họa Asset | [GitHub] (https://github.com/DayunJ1410) |
-| 3 | **Trần Quốc Trung** | 25CNTT3 | **Phần 3**: Code Model (Snake, Food), Xử lý File I/O | [GitHub] (https://github.com/abachaap) |
+| 3 | **Trần Quốc Trung** | MSV: 3120225167 25CNTT3 | **Phần 3**: Code Model (Snake, Food), Xử lý File I/O | [GitHub] (https://github.com/abachaap) |
 
 ## 📝 Giới thiệu dự án (Description)
 Dự án này xây dựng trò chơi "Rắn Săn Mồi" kinh điển trên nền tảng Desktop sử dụng ngôn ngữ Java. Trò chơi giúp người dùng giải trí thông qua việc điều khiển chú rắn ăn mồi để tăng điểm số, đồng thời yêu cầu sự khéo léo để tránh va phải tường hoặc thân mình. Ứng dụng tập trung vào việc áp dụng các kiến thức về lập trình hướng đối tượng (OOP) và cấu trúc dữ liệu giải thuật.
