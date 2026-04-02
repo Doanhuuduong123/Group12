@@ -10,7 +10,7 @@ public class MenuPanel extends JPanel {
     
     public MenuPanel() {
         this.setLayout(new BorderLayout());
-        this.setBackground(new Color(30, 30, 30)); // Dark background
+        this.setBackground(new Color(30, 30, 30));
         
         JPanel titlePanel = createTitlePanel();
         
@@ -45,25 +45,21 @@ public class MenuPanel extends JPanel {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
         
-        // Biểu tượng trang trí
         JLabel topDecor = new JLabel("=== SNAKE ===");
         topDecor.setFont(new Font("Arial", Font.BOLD, 24));
         topDecor.setForeground(Color.WHITE);
         topDecor.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        // Tiêu đề chính
         JLabel title = new JLabel("SNAKE GAME");
         title.setFont(new Font("Arial", Font.BOLD, 64));
-        title.setForeground(new Color(255, 215, 0)); // Gold color
+        title.setForeground(new Color(255, 215, 0));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        // Slogan game
         JLabel slogan = new JLabel("CHINH PHUC DIEM SO CAO");
         slogan.setFont(new Font("Arial", Font.BOLD, 20));
         slogan.setForeground(new Color(200, 200, 200));
         slogan.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        // Mô tả game
         JLabel desc = new JLabel("An moi de lon nhanh va tranh vat can");
         desc.setFont(new Font("Arial", Font.PLAIN, 18));
         desc.setForeground(new Color(255, 255, 200));

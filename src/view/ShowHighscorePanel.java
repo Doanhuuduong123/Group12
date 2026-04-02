@@ -53,31 +53,28 @@ public class ShowHighscorePanel extends JPanel {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(new Color(20, 20, 20));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        
-       // 🔴 TỰ VẼ NỀN CHO NÚT BẤM (BẤT CHẤP MỌI HỆ ĐIỀU HÀNH)
+
         btnBack = new JButton("BACK TO MENU") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
-                // Kiểm tra xem chuột có đang nằm trên nút không
+
                 if (getModel().isRollover()) {
-                    g2d.setColor(new Color(255, 50, 50)); // Đỏ tươi khi hover
+                    g2d.setColor(new Color(255, 50, 50));
                 } else {
-                    g2d.setColor(new Color(180, 0, 0));   // Đỏ thẫm mặc định
+                    g2d.setColor(new Color(180, 0, 0));
                 }
                 
-                // Vẽ một hình chữ nhật bo góc làm nền
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10); 
-                super.paintComponent(g); // Vẽ chữ đè lên trên nền
+                super.paintComponent(g);
             }
         };
         
         btnBack.setFont(new Font("Arial", Font.BOLD, 18));
-        btnBack.setForeground(Color.WHITE); // Chữ màu trắng
+        btnBack.setForeground(Color.WHITE);
         
-        // 3 lệnh cực kỳ quan trọng để lột bỏ lớp vỏ mặc định của nút
         btnBack.setContentAreaFilled(false); 
         btnBack.setFocusPainted(false);
         btnBack.setBorderPainted(false);
@@ -85,13 +82,10 @@ public class ShowHighscorePanel extends JPanel {
         btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnBack.setPreferredSize(new Dimension(250, 50));
         
-        // Đoạn này KHÔNG CẦN addMouseListener nữa vì paintComponent đã tự lo phần hover rồi.
-        
-        // 🔴 ÉP NÚT BẤM HIỂN THỊ NỀN ĐỎ (Fix lỗi mất nền)
         btnBack.setBackground(new Color(180, 0, 0)); 
-        btnBack.setOpaque(true); // Dòng này cực kỳ quan trọng để hiện nền màu
+        btnBack.setOpaque(true);
         btnBack.setFocusPainted(false);
-        btnBack.setBorderPainted(false); // Bỏ viền để nút trông phẳng và hiện đại
+        btnBack.setBorderPainted(false);
         btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnBack.setPreferredSize(new Dimension(250, 50));
         
@@ -175,10 +169,9 @@ public class ShowHighscorePanel extends JPanel {
         table.setSelectionBackground(new Color(80, 80, 80));
         table.setSelectionForeground(Color.WHITE);
 
-        // 🔴 ÉP THANH TIÊU ĐỀ (HEADER) HIỂN THỊ NỀN ĐỎ BẰNG RENDERER
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setBackground(new Color(180, 0, 0)); // Nền đỏ thẫm
-        headerRenderer.setForeground(Color.WHITE);          // Chữ trắng
+        headerRenderer.setBackground(new Color(180, 0, 0));
+        headerRenderer.setForeground(Color.WHITE);
         headerRenderer.setHorizontalAlignment(JLabel.CENTER);
         headerRenderer.setFont(new Font("Arial", Font.BOLD, 20));
         

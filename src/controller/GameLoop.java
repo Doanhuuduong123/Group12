@@ -6,9 +6,9 @@ import model.Snake;
 import model.Wall;
 import view.GamePanel;
 import view.MainFrame;
-import utils.SoundManager; // Import bộ quản lý âm thanh
-import javax.sound.sampled.Clip; // Import thư viện âm thanh của Java
-import utils.ExceptionHandler; // Import ExceptionHandler for saving scores
+import utils.SoundManager;
+import javax.sound.sampled.Clip;
+import utils.ExceptionHandler;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -22,28 +22,25 @@ public class GameLoop extends Thread {
     private ArrayList<Integer> scores;
     private volatile boolean running = true;
     
-    // Biến lưu trữ âm thanh
     private Clip bgMusic;
     private Clip eatSound;
-    private static final String HIGHSCORE_FILE = "highscores.txt"; // Define highscore file name
+    private static final String HIGHSCORE_FILE = "highscores.txt";
 
     public GameLoop(GamePanel gp, Snake s, Food f, GameData gd, MainFrame mf, ArrayList<Integer> scores) {
         this.gamePanel = gp; this.snake = s; this.food = f; 
         this.gameData = gd; this.mainFrame = mf; this.scores = scores;
         
-        // Nạp file âm thanh từ thư mục asset
         this.bgMusic = SoundManager.loadSound("bgm.wav");
         this.eatSound = SoundManager.loadSound("eat.wav");
     }
 
     public void stopGame() { 
         running = false; 
-        SoundManager.stopSound(bgMusic); // Tắt nhạc nền khi thoát game
+        SoundManager.stopSound(bgMusic);
     }
 
     @Override
     public void run() {
-        // Bật nhạc nền lặp vô hạn khi bắt đầu vòng lặp game
         SoundManager.loopSound(bgMusic);
 
         while (running && snake.isAlive()) {
@@ -52,9 +49,7 @@ public class GameLoop extends Thread {
             gamePanel.repaint();
 
             try {
-                // Tốc độ cơ bản 120ms, mỗi 10 điểm (1 quả táo thường) giảm 2ms để nhanh hơn
-                // Giới hạn tối thiểu là 40ms để không quá nhanh
-                int delay = Math.max(40, 120 - (gameData.getScore() / 10) * 2);
+                int delay = Math.max(40, 110 - (gameData.getScore() / 10) * 2);
                 Thread.sleep(delay);
             } catch (InterruptedException e) {
                 break;
@@ -62,9 +57,9 @@ public class GameLoop extends Thread {
         }
 
         if (!snake.isAlive() && running) {
-            SoundManager.stopSound(bgMusic); // Rắn chết -> Tắt nhạc nền ngay lập tức
+            SoundManager.stopSound(bgMusic);
             scores.add(gameData.getScore());
-            ExceptionHandler.writeHighscores(HIGHSCORE_FILE, scores); // Save scores after adding
+            ExceptionHandler.writeHighscores(HIGHSCORE_FILE, scores);
             mainFrame.showGameOver(gameData.getScore());
         }
     }
@@ -72,13 +67,11 @@ public class GameLoop extends Thread {
     private void checkCollisions() {
         Point head = snake.getBody().get(0);
 
-        // 1. Đụng biên giới
         if (head.x < 0 || head.x >= 900 || head.y < 0 || head.y >= 600) {
             snake.setAlive(false);
             return;
         }
 
-        // 2. Cắn vào thân
         for (int i = 1; i < snake.getBody().size(); i++) {
             if (head.equals(snake.getBody().get(i))) {
                 snake.setAlive(false);
@@ -86,7 +79,6 @@ public class GameLoop extends Thread {
             }
         }
 
-        // 3. Đụng vật cản (Khối Block)
         if (gameData.getWalls() != null) {
             for (Wall w : gameData.getWalls()) {
                 if (head.x == w.getX() && head.y == w.getY()) {
@@ -96,9 +88,7 @@ public class GameLoop extends Thread {
             }
         }
 
-        // 4. Ăn mồi
         if (head.x == food.getX() && head.y == food.getY()) {
-            // Phát tiếng cắn táo "Rộp rộp"
             SoundManager.playSound(eatSound);
 
             int points = food.isSpecial() ? 20 : 10;
@@ -107,9 +97,8 @@ public class GameLoop extends Thread {
             
             snake.grow();
             
-            // LOGIC CHUẨN: Tường mọc trước, Táo mọc sau!
-            gameData.spawnRandomWalls(1, 3, snake, food); // Tường mới mọc lên
-            food.spawn(snake, gameData.getWalls());       // Táo lấy danh sách tường mới để né
+            gameData.spawnRandomWalls(1, 3, snake, food);
+            food.spawn(snake, gameData.getWalls());
         }
     }
 }

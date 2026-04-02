@@ -15,9 +15,9 @@ public class Snake extends GameObject {
 
     public void reset() {
         body = new ArrayList<>();
-        body.add(new Point(x, y));             // Đầu
-        body.add(new Point(x - size, y));      // Thân
-        body.add(new Point(x - size * 2, y));  // Đuôi
+        body.add(new Point(x, y));
+        body.add(new Point(x - size, y));
+        body.add(new Point(x - size * 2, y));
         direction = "RIGHT";
         isAlive = true;
     }

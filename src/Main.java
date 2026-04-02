@@ -9,19 +9,19 @@ import view.GamePanel;
 import controller.GameLoop;
 import controller.InputHandler;
 import java.util.ArrayList;
-import utils.ExceptionHandler; // Import ExceptionHandler
+import utils.ExceptionHandler;
 
 public class Main {
     private static MainFrame mainFrame;
     private static GameLoop gameLoop;
     private static ArrayList<Integer> highscores = new ArrayList<>();
-    private static final String HIGHSCORE_FILE = "highscores.txt"; // Define highscore file name
+    private static final String HIGHSCORE_FILE = "highscores.txt";
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                highscores = ExceptionHandler.readHighscores(HIGHSCORE_FILE); // Load highscores at startup
+                highscores = ExceptionHandler.readHighscores(HIGHSCORE_FILE);
                 mainFrame = new MainFrame();
                 setupMenuActions();
                 mainFrame.setVisible(true);
