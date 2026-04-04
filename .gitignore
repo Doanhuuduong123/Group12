@@ -18,7 +18,6 @@ out/
 .project
 .settings/
 *.launch
-
 # --- VS Code ---
 .vscode/
 
