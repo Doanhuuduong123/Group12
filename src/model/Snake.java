@@ -24,6 +24,7 @@ public class Snake extends GameObject {
 
     public void move() {
         if (!isAlive) return;
+
         Point head = body.get(0);
         Point newHead = new Point(head.x, head.y);
 
@@ -41,6 +42,34 @@ public class Snake extends GameObject {
     public void grow() {
         Point tail = body.get(body.size() - 1);
         body.add(new Point(tail.x, tail.y));
+    }
+
+    // 🔥 CHECK ĐỤNG WALL
+    public boolean hitWall(ArrayList<Wall> walls) {
+
+        int wallSize = size * 2;
+
+        Point head = body.get(0);
+
+        java.awt.Rectangle headRect =
+                new java.awt.Rectangle(head.x, head.y, size, size);
+
+        for (Wall w : walls) {
+
+            java.awt.Rectangle wallRect =
+                    new java.awt.Rectangle(
+                            w.getX(),
+                            w.getY(),
+                            wallSize,
+                            wallSize
+                    );
+
+            if (headRect.intersects(wallRect)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public ArrayList<Point> getBody() { return body; }

@@ -65,7 +65,6 @@ public class GamePanel extends JPanel {
         g2d.setTransform(old);
     }
 
-    // WALL 3x3
     private void drawRotatedWall(Graphics2D g2d, Image img, int x, int y, String direction) {
         if (img == null || direction == null) return;
 
@@ -117,13 +116,11 @@ public class GamePanel extends JPanel {
             int h = getHeight();
             if (w <= 0 || h <= 0) return; 
 
-            // thanh đen dưới
             g2d.setColor(new Color(30, 30, 30));
             g2d.fillRect(0, h - BOTTOM_BAR_HEIGHT, w, BOTTOM_BAR_HEIGHT);
 
             int playHeight = h - BOTTOM_BAR_HEIGHT;
 
-            // nền caro
             for (int i = 0; i < (w / TILE_SIZE) + 1; i++) {
                 for (int j = 0; j < (playHeight / TILE_SIZE) + 1; j++) {
                     g2d.setColor((i + j) % 2 == 0
@@ -136,7 +133,6 @@ public class GamePanel extends JPanel {
                 }
             }
 
-            // vẽ snake
             if (snake != null && snake.getBody() != null && !snake.getBody().isEmpty()) {
                 ArrayList<Point> body = new ArrayList<>(snake.getBody());
 
@@ -178,7 +174,6 @@ public class GamePanel extends JPanel {
                 }
             }
 
-            // vẽ food
             if (food != null && food.getY() < playHeight) {
                 Image img = food.isSpecial()
                         ? yellowAppleImg
@@ -194,7 +189,6 @@ public class GamePanel extends JPanel {
                 }
             }
 
-            // vẽ wall 3x3
             if (gameData != null && gameData.getWalls() != null) {
                 for (Wall wWall : gameData.getWalls()) {
 
@@ -211,8 +205,8 @@ public class GamePanel extends JPanel {
                         g2d.fillRect(
                                 wWall.getX(),
                                 wWall.getY(),
-                                TILE_SIZE,
-                                TILE_SIZE 
+                                TILE_SIZE*2,
+                                TILE_SIZE*2 
                         );
                     }
                 }

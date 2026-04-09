@@ -13,59 +13,94 @@ public class GameData {
     public GameData() {
         walls.clear();
     }
-public void spawnRandomWalls(int min, int max, Snake snake, Food food) {
+
+    public void spawnRandomWalls(int min, int max, Snake snake, Food food) {
+
         int count = rand.nextInt(max - min + 1) + min;
+
         int tileSize = 30;
-        
-        // 1. SỬA GIỚI HẠN refined (Total conceptual board 900x600, Border 60px all around)
-        // Vùng chơi playable X [60, 840], Y [60, 540] conceptually.
-        // maxX_playable = (840-60)/30 = 26 tiles, offset +2 for [60, 810] range
-        int maxX = 26; // num tiles playable X
-        // maxY_playable = (540-60)/30 = 16 tiles, offset +2 for [60, 510] range
-        int maxY = 16; // num tiles playable Y
+        int wallSize = tileSize * 3;
+
+        int maxX = 26;
+        int maxY = 16;
 
         for (int i = 0; i < count; i++) {
+
             int rx, ry;
             boolean validPosition;
             int attempts = 0;
 
             do {
                 validPosition = true;
-                
-                // 2. TẠO TỌA ĐỘ refined (offset +2 tiles = 60px)
-                // rx range: [2*30, (26-1+2)*30] = [60, 810]. Last wall tile 810-840X.
-                rx = (rand.nextInt(maxX) + 2) * tileSize; 
-                // ry range: [2*30, (16-1+2)*30] = [60, 510]. Last wall tile 510-540Y.
-                ry = (rand.nextInt(maxY) + 2) * tileSize; 
 
-                // ... (Phần code kiểm tra trùng lặp với Food, Snake, Wall bên dưới GIỮ NGUYÊN) ...
-                if (food != null && rx == food.getX() && ry == food.getY()) {
-                    validPosition = false;
+                rx = (rand.nextInt(maxX) + 2) * tileSize;
+                ry = (rand.nextInt(maxY) + 2) * tileSize;
+
+                java.awt.Rectangle wallRect =
+                        new java.awt.Rectangle(rx, ry, wallSize, wallSize);
+
+                // check food
+                if (food != null) {
+
+                    java.awt.Rectangle foodRect =
+                            new java.awt.Rectangle(
+                                    food.getX(),
+                                    food.getY(),
+                                    tileSize,
+                                    tileSize
+                            );
+
+                    if (wallRect.intersects(foodRect)) {
+                        validPosition = false;
+                    }
                 }
 
+                // check snake
                 if (snake != null && snake.getBody() != null) {
                     for (Point p : snake.getBody()) {
-                        if (rx == p.x && ry == p.y) {
+
+                        java.awt.Rectangle snakeRect =
+                                new java.awt.Rectangle(
+                                        p.x,
+                                        p.y,
+                                        tileSize,
+                                        tileSize
+                                );
+
+                        if (wallRect.intersects(snakeRect)) {
                             validPosition = false;
                             break;
                         }
                     }
                 }
 
+                // check wall khác
                 for (Wall w : walls) {
-                    if (rx == w.getX() && ry == w.getY()) {
+
+                    java.awt.Rectangle other =
+                            new java.awt.Rectangle(
+                                    w.getX(),
+                                    w.getY(),
+                                    wallSize,
+                                    wallSize
+                            );
+
+                    if (wallRect.intersects(other)) {
                         validPosition = false;
                         break;
                     }
                 }
+
                 attempts++;
-            } while (!validPosition && attempts < 100);
+
+            } while (!validPosition && attempts < 200);
 
             if (validPosition) {
-                walls.add(new Wall(rx, ry, tileSize));
+                walls.add(new Wall(rx, ry, wallSize));
             }
         }
     }
+
     public int getScore() { return score; }
     public void setScore(int score) { this.score = score; }
     public ArrayList<Wall> getWalls() { return walls; }

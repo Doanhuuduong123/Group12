@@ -45,6 +45,11 @@ public class GameLoop extends Thread {
 
         while (running && snake.isAlive()) {
             snake.move();
+
+        if (snake.hitWall(gameData.getWalls())) {
+            snake.setAlive(false);
+            gameData.setGameOver(true);
+            }
             checkCollisions();
             gamePanel.repaint();
 
