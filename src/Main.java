@@ -1,5 +1,3 @@
-
-
 import javax.swing.*;
 import model.Snake;
 import model.Food;
